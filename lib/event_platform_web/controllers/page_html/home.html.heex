@@ -1,0 +1,119 @@
+<div class="min-h-screen bg-base-100">
+  <!-- Header Navigation -->
+  <header class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-8">
+    <div class="navbar-start">
+      <h1 class="text-xl font-semibold text-base-content">EventPlatform</h1>
+    </div>
+    <div class="navbar-end">
+      <div class="flex items-center gap-4">
+        <span class="text-sm text-base-content/70">user@example.com</span>
+        <button class="btn btn-sm btn-outline">Settings</button>
+        <button class="btn btn-sm">Log out</button>
+      </div>
+    </div>
+  </header>
+  
+<!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Page Title -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-base-content mb-2">My Organizations</h1>
+      <p class="text-base-content/70">Manage your organizations, places, and events</p>
+    </div>
+    
+<!-- Organizations Grid -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+      <!-- Organization Card 1 -->
+      <div class="card bg-base-100 border border-base-200 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+          <h2 class="card-title text-base-content">Community Garden Club</h2>
+          <p class="text-base-content/70 text-sm mb-4">
+            Local gardening community organizing seasonal events
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-primary">View Places</button>
+            <button class="btn btn-sm btn-outline">Edit</button>
+          </div>
+        </div>
+      </div>
+      
+<!-- Organization Card 2 -->
+      <div class="card bg-base-100 border border-base-200 shadow-sm hover:shadow-md transition-shadow">
+        <div class="card-body">
+          <h2 class="card-title text-base-content">Neighborhood Watch</h2>
+          <p class="text-base-content/70 text-sm mb-4">
+            Safety meetings and community patrol events
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-primary">View Places</button>
+            <button class="btn btn-sm btn-outline">Edit</button>
+          </div>
+        </div>
+      </div>
+      
+<!-- Add New Organization Card -->
+      <div class="card bg-base-100 border border-base-200 border-dashed hover:border-primary transition-colors">
+        <div class="card-body items-center text-center">
+          <div class="w-12 h-12 rounded-full bg-base-200 flex items-center justify-center mb-3">
+            <svg
+              class="w-6 h-6 text-base-content/50"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              >
+              </path>
+            </svg>
+          </div>
+          <h2 class="card-title text-base-content/70 text-sm">Add Organization</h2>
+          <button class="btn btn-sm btn-primary mt-2">Create New</button>
+        </div>
+      </div>
+    </div>
+    
+<!-- Recent Events Section -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold text-base-content mb-4">Recent Events</h2>
+      <div class="space-y-3">
+        <!-- Event Item -->
+        <div class="card bg-base-100 border border-base-200 shadow-sm">
+          <div class="card-body p-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-medium text-base-content">Spring Cleanup Day</h3>
+                <p class="text-sm text-base-content/70">Community Garden Club • Main Garden</p>
+                <p class="text-xs text-base-content/50 mt-1">March 15, 2024 • 9:00 AM</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="badge badge-primary badge-sm">12 signed up</span>
+                <button class="btn btn-xs btn-outline">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+<!-- Event Item -->
+        <div class="card bg-base-100 border border-base-200 shadow-sm">
+          <div class="card-body p-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-medium text-base-content">Monthly Safety Meeting</h3>
+                <p class="text-sm text-base-content/70">Neighborhood Watch • Community Center</p>
+                <p class="text-xs text-base-content/50 mt-1">March 20, 2024 • 7:00 PM</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="badge badge-outline badge-sm">Album available</span>
+                <button class="btn btn-xs btn-outline">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
