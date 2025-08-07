@@ -1,0 +1,21 @@
+@import "../node_modules/leaflet/dist/leaflet.css";
+
+/* Fix relative paths to point to /images/leaflet */
+.leaflet-container .leaflet-tile,
+.leaflet-container .leaflet-control-zoom-in,
+.leaflet-container .leaflet-control-zoom-out,
+.leaflet-container .leaflet-control-layers {
+  background-image: none !important;
+}
+
+/* Let Leaflet JS set tile images dynamically (it will still work),
+   but optionally fix control icons */
+.leaflet-control-zoom-in {
+  background-image: url("/images/leaflet/zoom-in.png");
+}
+.leaflet-control-zoom-out {
+  background-image: url("/images/leaflet/zoom-out.png");
+}
+.leaflet-control-layers {
+  background-image: url("/images/leaflet/layers.png");
+}

@@ -24,40 +24,60 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
-// let Hooks = {}
-
-// Hooks.FileUploadClick = {
-//   mounted() {
-//     this.el.addEventListener("click", () => {
-//       console.log("UPLOAD CLICKED");
-//       document.getElementById("image-upload")?.click();
-//     });
-//   }
-// }
-
-// Hooks.FileUploadClick = {
-//   mounted() {
-//     console.log("mounted")
-//     const input = this.el.querySelector("#image-upload")
-//     const area = this.el.querySelector("#image-upload-area")
-
-//     if (!input) {
-//       console.warn("Missing input")
-//     }
-
-//     if (!area) {
-//       console.warn("Missing  area")
-//     }
-
-//     if (!input || !area) {return;}
+import L from "../node_modules/leaflet";
 
 
-//     area.addEventListener("click", () => {
-//       input.click()
-//     })
-//   }
-// }
+let map_popup;
+let map;
+let marker;
 
+function onMapClick(e) {
+    if (!!marker) {
+      map.removeLayer(marker); // get rid of old marker
+    }
+    lat = e.latlng.lat;
+    lng = e.latlng.lng;
+    marker = L.marker([lat,lng]).addTo(map); // and add new one
+    marker.bindPopup(`Lat: ${lat}, Lng: ${lng}`);
+    map_popup
+      .setLatLng(e.latlng)
+      .setContent(`Lat: ${lat}, Lng: ${lng}`)
+      .openOn(map); // show it now
+}
+
+
+const Map = {
+      
+    mounted() {
+       const DefaultIcon = L.icon({
+          iconUrl: "/images/leaflet/marker-icon.png",
+          shadowUrl: "/images/leaflet/marker-shadow.png",
+          iconSize: [24,36],
+          iconAnchor: [12,36]
+        });
+        L.Marker.prototype.options.icon = DefaultIcon; 
+
+        let lat = 43.588162;
+        let lng = -84.759063;
+    
+        map_popup = L.popup();
+
+        map = L.map("map").setView([lat, lng], 6)
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 16,
+          }
+        ).addTo(map)
+        map.on('click', onMapClick);
+        marker = L.marker([lat,lng]).addTo(map)       
+        marker.bindPopup("Hello from Michigan!")
+    },
+};
+
+const Hooks = {
+    Map,
+};
 
 
 
@@ -66,13 +86,9 @@ const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute
 
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
-  params: {_csrf_token: csrfToken}
+  params: {_csrf_token: csrfToken},
+  hooks: Hooks
 })
-// const liveSocket = new LiveSocket("/live", Socket, {
-//   hooks: Hooks,
-//   longPollFallbackMs: 2500,
-//   params: {_csrf_token: csrfToken}
-// })
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})

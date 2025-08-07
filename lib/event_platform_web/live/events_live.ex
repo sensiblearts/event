@@ -9,8 +9,10 @@ defmodule EventPlatformWeb.EventsLive do
     place =
       Repo.get!(Place, place_id)
       |> Repo.preload(:organization)
+
       # |> Repo.preload([:organization, [:events]])
       # |> Repo.preload([:organization, [events: from(e in Event, order_by: [asc: e.inserted_at])]])
+      # events are loaded below
 
 
     # Verify user owns the organization that contains this place
