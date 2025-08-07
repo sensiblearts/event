@@ -23,18 +23,40 @@ defmodule EventPlatformWeb.PlacesLive do
      socket
      |> assign(:organization, organization)
      |> assign(:places, places)
+     |> assign(:lat, nil)
+     |> assign(:lng, nil)
      |> assign(:show_form, false)
      |> assign(:form, to_form(%{}))}
   end
 
+
+  @impl true
   def handle_event("show_form", _params, socket) do
     {:noreply, assign(socket, :show_form, true)}
   end
 
+  @impl true
   def handle_event("hide_form", _params, socket) do
     {:noreply, assign(socket, :show_form, false)}
   end
 
+  # def handle_evant(any, params, socket) do
+  #   IO.inspect any, label: "LEAFLET: "
+  #   IO.inspect params, label: "LEAFLET: "
+  #   {:noreply, socket}
+  # end
+
+  @impl true
+  def handle_event("leaflet_lat_lng_changed", %{"lat" => lat, "lng" => lng} = params, socket) do
+    # IO.inspect lat, label: "LEAFLET LAT: "
+    # IO.inspect lng, label: "LEAFLET LNG: "
+    {:noreply,
+      socket
+      |> assign(:lat, lat)
+      |> assign(:lng, lng)}
+  end
+
+  @impl true
   def handle_event("create_place", place_params, socket) do
     attrs = Map.put(place_params, "organization_id", socket.assigns.organization.id)
 

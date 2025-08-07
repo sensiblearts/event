@@ -30,6 +30,15 @@ import L from "../node_modules/leaflet";
 let map_popup;
 let map;
 let marker;
+let map_hook_view;
+
+const LeafletMarkerIcon = L.icon({
+  iconUrl: "/images/leaflet/marker-icon.png",
+  shadowUrl: "/images/leaflet/marker-shadow.png",
+  iconSize: [24,36],
+  iconAnchor: [12,36]
+});
+L.Marker.prototype.options.icon = LeafletMarkerIcon; 
 
 function onMapClick(e) {
     if (!!marker) {
@@ -39,6 +48,9 @@ function onMapClick(e) {
     lng = e.latlng.lng;
     marker = L.marker([lat,lng]).addTo(map); // and add new one
     marker.bindPopup(`Lat: ${lat}, Lng: ${lng}`);
+
+    map_hook_view.pushEvent("leaflet_lat_lng_changed", { lat: lat, lng: lng });
+
     map_popup
       .setLatLng(e.latlng)
       .setContent(`Lat: ${lat}, Lng: ${lng}`)
@@ -47,29 +59,19 @@ function onMapClick(e) {
 
 
 const Map = {
-      
     mounted() {
-       const DefaultIcon = L.icon({
-          iconUrl: "/images/leaflet/marker-icon.png",
-          shadowUrl: "/images/leaflet/marker-shadow.png",
-          iconSize: [24,36],
-          iconAnchor: [12,36]
-        });
-        L.Marker.prototype.options.icon = DefaultIcon; 
-
+        map_hook_view = this; // for on-click, above.
         let lat = 43.588162;
         let lng = -84.759063;
-    
-        map_popup = L.popup();
-
         map = L.map("map").setView([lat, lng], 6)
-
+        map_popup = L.popup();
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             maxZoom: 16,
           }
         ).addTo(map)
         map.on('click', onMapClick);
+        // optional:
         marker = L.marker([lat,lng]).addTo(map)       
         marker.bindPopup("Hello from Michigan!")
     },
@@ -78,9 +80,6 @@ const Map = {
 const Hooks = {
     Map,
 };
-
-
-
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 

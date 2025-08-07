@@ -78,12 +78,13 @@
 <!-- Create Place Form -->
       <%= if @show_form do %>
 
-           <div class="container mx-auto w-[80%]" id="map-container">
-            <div class="w-full h-[500px] p-20 z-90" id="map" phx-hook="Map"></div>
+           <div phx-update="ignore" class="container mx-auto w-[80%]" id="map-container">
+            <div class="w-full h-[500px] p-20" id="map" phx-hook="Map"></div>
           </div>
 
         <div class="card bg-base-100 border border-base-200 shadow-sm mb-8">
 
+          <div>LAT, LNG: <%= "#{@lat}, #{@lng}" %></div>
           <div class="card-body">
             <h3 class="card-title text-base-content mb-4">Create New Place</h3>
             <.form for={@form} id="place-form" phx-submit="create_place" class="space-y-4">
