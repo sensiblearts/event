@@ -23,9 +23,7 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-
 import L from "../node_modules/leaflet";
-
 
 let map_popup;
 let map;
@@ -48,15 +46,13 @@ function onMapClick(e) {
     lng = e.latlng.lng;
     marker = L.marker([lat,lng]).addTo(map); // and add new one
     marker.bindPopup(`Lat: ${lat}, Lng: ${lng}`);
-
+    // notify phoenix liveview:
     map_hook_view.pushEvent("leaflet_lat_lng_changed", { lat: lat, lng: lng });
-
     map_popup
       .setLatLng(e.latlng)
       .setContent(`Lat: ${lat}, Lng: ${lng}`)
       .openOn(map); // show it now
 }
-
 
 const Map = {
     mounted() {

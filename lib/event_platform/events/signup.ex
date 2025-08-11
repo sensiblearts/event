@@ -11,6 +11,7 @@ defmodule EventPlatform.Events.Signup do
     timestamps(type: :utc_datetime)
   end
 
+
   @doc false
   def changeset(signup, attrs) do
     signup

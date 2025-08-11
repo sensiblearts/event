@@ -2,7 +2,9 @@ defmodule EventPlatformWeb.EventAlbumsLive do
   use EventPlatformWeb, :live_view
   alias EventPlatform.Repo
   alias EventPlatform.Events.{Event, EventAlbum}
-  alias EventPlatform.Organizations.Place
+  # alias EventPlatform.Organizations.Place
+
+
   import Ecto.Query
 
   def mount(%{"event_id" => event_id}, _session, socket) do
@@ -66,25 +68,37 @@ defmodule EventPlatformWeb.EventAlbumsLive do
           # Save uploaded file
           uploaded_file =
             consume_uploaded_entry(socket, entry, fn %{path: path} ->
-              filename = "#{System.unique_integer([:positive])}_#{entry.client_name}"
-              dest = Path.join([:code.priv_dir(:event_platform), "static", "uploads", filename])
 
-              # Ensure uploads directory exists
-              File.mkdir_p!(Path.dirname(dest))
+              upload = %Plug.Upload{
+                path: path,
+                filename: entry.client_name,
+                content_type: entry.client_type
+              }
 
-              # Copy file to destination
-              File.cp!(path, dest)
+              case EventPlatform.Photo.store(upload) do
+                {:ok, file_name} -> {:ok, ~p"/uploads/#{file_name}"}
+                {:error, reason} -> {:error, reason}
+              end
 
-              {:ok, ~p"/uploads/#{filename}"}
+              # filename = "#{System.unique_integer([:positive])}_#{entry.client_name}"
+              # dest = Path.join([:code.priv_dir(:event_platform), "static", "uploads", filename])
+
+              # # Ensure uploads directory exists
+              # File.mkdir_p!(Path.dirname(dest))
+
+              # # Copy file to destination
+              # File.cp!(path, dest)
+
+              # {:ok, ~p"/uploads/#{filename}"}
             end)  # returns just the file path
 
           if "" == uploaded_file or is_nil(uploaded_file) do
-            IO.puts "NOT OK"
+            IO.puts "FILE UPLOAD NOT OK"
             IO.inspect params["image_url"]
             {nil, params["image_url"]}
           else
-            IO.puts "OK"
-            IO.inspect uploaded_file
+            # IO.puts "OK"
+            # IO.inspect uploaded_file
             {uploaded_file, nil}
 
           end

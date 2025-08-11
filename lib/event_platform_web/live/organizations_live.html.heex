@@ -1,7 +1,7 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
   <div class="min-h-screen bg-base-100">
     <!-- Header Navigation -->
-    <header class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-8">
+    <%!-- <header class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-8">
       <div class="navbar-start">
         <h1 class="text-xl font-semibold text-base-content">EventPlatform</h1>
       </div>
@@ -12,13 +12,13 @@
           <.link href={~p"/users/log-out"} method="delete" class="btn btn-sm">Log out</.link>
         </div>
       </div>
-    </header>
+    </header> --%>
     
 <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 max-w-6xl">
       <!-- Page Title -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-base-content mb-2">My Organizations</h1>
+        <h1 class="text-3xl font-bold text-base-content mb-2"> Organizations</h1>
         <p class="text-base-content/70">Manage your organizations, places, and events</p>
       </div>
       
@@ -46,7 +46,7 @@
         <% end %>
         
 <!-- Add New Organization Card -->
-        <div class="card bg-base-100 border border-base-200 border-dashed hover:border-primary transition-colors">
+        <%!-- <div class="card bg-base-100 border border-base-200 border-dashed hover:border-primary transition-colors">
           <div class="card-body items-center text-center">
             <div class="w-12 h-12 rounded-full bg-base-200 flex items-center justify-center mb-3">
               <svg
@@ -68,10 +68,10 @@
             <button phx-click="show_form" class="btn btn-sm btn-primary mt-2">Create New</button>
           </div>
         </div>
-      </div>
+      </div> --%>
       
 <!-- Create Organization Form -->
-      <%= if @show_form do %>
+      <%!-- <%= if @show_form do %>
         <div class="card bg-base-100 border border-base-200 shadow-sm mb-8">
           <div class="card-body">
             <h3 class="card-title text-base-content mb-4">Create New Organization</h3>
@@ -98,10 +98,10 @@
             </.form>
           </div>
         </div>
-      <% end %>
+      <% end %> --%>
       
 <!-- Recent Events Section -->
-      <div class="mb-8">
+      <%!-- <div class="mb-8">
         <h2 class="text-2xl font-semibold text-base-content mb-4">Recent Events</h2>
         <%= if @recent_events == [] do %>
           <div class="text-center py-8">
@@ -135,8 +135,9 @@
               </div>
             <% end %>
           </div>
-        <% end %>
-      </div>
+        <% end %>--%>
+      </div> 
+    
     </main>
   </div>
 </Layouts.app>

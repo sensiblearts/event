@@ -7,6 +7,13 @@ config :event_platform, EventPlatform.Repo,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
 
+config :waffle,
+  storage: Waffle.Storage.Local,
+  storage_dir_prefix: "priv/static",
+  storage_dir: "uploads"
+  # asset_host: {:system, "ASSET_HOST"}
+  # asset_host: "http://localhost" # or {:system, "ASSET_HOST"}
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
